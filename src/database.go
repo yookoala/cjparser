@@ -13,12 +13,9 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type DataEntry []string
-
 type SourceHandler interface {
 	Init(uni *ConvertDB) (err error)
-	ParseLine(line string) (item DataEntry, err error)
-	Insert(tx *sql.Tx, item DataEntry) (err error)
+	Insert(tx *sql.Tx, item interface{}) (err error)
 }
 
 type ConvertDB struct {
@@ -26,10 +23,6 @@ type ConvertDB struct {
 	DB       *sql.DB
 	conn     bool
 	handlers map[string]SourceHandler
-}
-
-func (db *ConvertDB) InitDb() (err error) {
-	return
 }
 
 func (db *ConvertDB) Register(name string, h SourceHandler) (err error) {
@@ -44,7 +37,7 @@ func (db *ConvertDB) Register(name string, h SourceHandler) (err error) {
 	return h.Init(db)
 }
 
-func (db *ConvertDB) Insert(name string, tx *sql.Tx, item []string) (err error) {
+func (db *ConvertDB) Insert(name string, tx *sql.Tx, item interface{}) (err error) {
 	if handler, ok := db.handlers[name]; ok {
 		handler.Insert(tx, item)
 		return nil
