@@ -1,4 +1,4 @@
-package cjparser
+package main
 
 /**
  * generic sqlite3 interface

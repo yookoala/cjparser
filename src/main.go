@@ -1,4 +1,4 @@
-package cjparser
+package main
 
 import (
 	"flag"
@@ -30,10 +30,12 @@ func main() {
 	}
 
 	// register handlers
-	db.Register("Cangjie5", Cangjie5DataHandler{
-		Type: "cj5-hant",
-	})
+	/*
+		db.Register("Cangjie5", Cangjie5DataHandler{
+			Type: "cj5-hant",
+		})
+	*/
 
 	// parse these cj files
-	parseIniFile(dir+"/cj5/cj5-21000", "Cangjie5", &db)
+	parseCangjie5File(dir+"/cj5/cj5-21000", "Cangjie5", &db)
 }
