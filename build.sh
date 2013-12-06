@@ -2,7 +2,7 @@
 
 BASE_DIR=$(dirname "$(readlink -f $0)")
 SRC_DIR="$BASE_DIR/src"
-DB_PATH="$BASE_DIR/data/unihan.db"
+DB_PATH="$BASE_DIR/data/cangjie.db"
 DATA_DIR="$BASE_DIR/data"
 
 # check dependencies and try to fix
@@ -41,7 +41,7 @@ fi
 # build the database
 echo -ne "build the database ... "
 cd ..
-./parseCj -f "$DATA_DIR" -d "$DB_DIR"
+./parseCj -f "$DATA_DIR" -d "$DB_PATH"
 RET=$?
 if [ $RET -eq 0 ]; then
   echo "Success"
