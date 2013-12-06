@@ -68,7 +68,7 @@ func parseCangjie5File(filename string, handlerName string, cat string, db *Conv
 			splited := strings.SplitN(line, "", 2)
 			unicode, _ := utf8.DecodeRuneInString(splited[0])
 			item := cangjieValue{
-				Unicode:   fmt.Sprintf("U+%x", unicode),
+				Unicode:   strings.ToUpper(fmt.Sprintf("U+%x", unicode)),
 				Character: splited[0],
 				Version:   handlerName,
 				Category:  cat,
