@@ -2,18 +2,19 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"io"
 	//"log"
 	"os"
-	"strings"
 )
 
 // Read a whole file into the memory and store it as array of lines
 func readLines(path string) (lines []string, err error) {
 	var (
-		file *os.File
-		line string
+		file   *os.File
+		part   []byte
+		prefix bool
 	)
 	if file, err = os.Open(path); err != nil {
 		return
@@ -21,13 +22,17 @@ func readLines(path string) (lines []string, err error) {
 	defer file.Close()
 
 	reader := bufio.NewReader(file)
+	buffer := bytes.NewBuffer(make([]byte, 0))
 	for {
-		if line, err = reader.ReadString('\r'); err != nil {
+		if part, prefix, err = reader.ReadLine(); err != nil {
 			break
 		}
-		if len(line) > 0 && line[0] != '#' {
-			line = strings.TrimRight(line, '\r')
-			lines = append(lines, line)
+		if len(part) > 0 && part[0] != '#' {
+			buffer.Write(part)
+			if !prefix {
+				lines = append(lines, buffer.String())
+				buffer.Reset()
+			}
 		}
 	}
 	if err == io.EOF {
