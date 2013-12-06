@@ -34,4 +34,5 @@ func main() {
 
 	// parse these cj files
 	parseCangjie5File(dir+"/cj5/cj5-21000", "Cangjie5", "zh-hant", &db)
+	parseCangjie5File(dir+"/cj5/cj5-jt-7000", "Cangjie5", "zh-hans", &db)
 }
