@@ -30,9 +30,12 @@ func main() {
 	}
 
 	// register handlers
+	db.Register("Cangjie3", CangjieDataHandler{})
 	db.Register("Cangjie5", CangjieDataHandler{})
 
 	// parse these cj files
+	parseCangjie3File(dir+"/cj3/FTCJ_UTF8.TXT", "Cangjie3", "zh-hant", &db)
+	parseCangjie3File(dir+"/cj3/JTCJ_UTF8.TXT", "Cangjie3", "zh-hans", &db)
 	parseCangjie5File(dir+"/cj5/cj5-21000", "Cangjie5", "zh-hant", &db)
 	parseCangjie5File(dir+"/cj5/cj5-jt-7000", "Cangjie5", "zh-hans", &db)
 }
