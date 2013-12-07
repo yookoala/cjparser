@@ -43,6 +43,43 @@ func readLines(path string) (lines []string, err error) {
 	return
 }
 
+func parseCangjie3File(filename string, handlerName string, cat string, db *ConvertDB) {
+
+	var serial uint32
+
+	tx, err := db.DB.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer tx.Commit()
+	lines, err := readLines(filename)
+	if err != nil {
+		panic(err)
+	}
+	for _, line := range lines {
+		line = strings.TrimRight(line, "\t ")
+		if len(line) > 9 && line[0] != ' ' {
+			serial += 1
+			partChar := strings.TrimRight(line[0:8], "\t ")
+			partCode := strings.TrimRight(line[8:], "\t ")
+			unicode, _ := utf8.DecodeRuneInString(partChar)
+			item := cangjieValue{
+				Unicode:   strings.ToUpper(fmt.Sprintf("U+%x", unicode)),
+				Character: partChar,
+				Version:   handlerName,
+				Category:  cat,
+				Code:      partCode,
+				Serial:    serial,
+			}
+			err = db.Insert(handlerName, tx, item)
+			if err != nil {
+				panic(err)
+			}
+
+		}
+	}
+}
+
 func parseCangjie5File(filename string, handlerName string, cat string, db *ConvertDB) {
 
 	var (
