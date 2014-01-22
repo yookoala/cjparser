@@ -23,7 +23,7 @@ This software comes with a build script (build.sh). To build the commandline too
 
     ./build.sh
 
-And things will be handled for you.
+And a database file named "cangjie.db" will be generated in the "data" folder
 
 
 ***
