@@ -43,7 +43,7 @@ func readLines(path string) (lines []string, err error) {
 	return
 }
 
-func parseCangjie3File(filename string, handlerName string, cat string, db *ConvertDB) {
+func parseCangjie3File(filename string, handlerName string, cat string, src string, db *ConvertDB) {
 
 	var serial uint32
 
@@ -69,6 +69,7 @@ func parseCangjie3File(filename string, handlerName string, cat string, db *Conv
 				Version:   handlerName,
 				Category:  cat,
 				Code:      partCode,
+				Source:    src,
 				Serial:    serial,
 			}
 			err = db.Insert(handlerName, tx, item)
@@ -80,7 +81,7 @@ func parseCangjie3File(filename string, handlerName string, cat string, db *Conv
 	}
 }
 
-func parseCangjie5File(filename string, handlerName string, cat string, db *ConvertDB) {
+func parseCangjie5File(filename string, handlerName string, cat string, src string, db *ConvertDB) {
 
 	var (
 		sect   string
@@ -110,6 +111,7 @@ func parseCangjie5File(filename string, handlerName string, cat string, db *Conv
 				Version:   handlerName,
 				Category:  cat,
 				Code:      splited[1],
+				Source:    src,
 				Serial:    serial,
 			}
 			err = db.Insert(handlerName, tx, item)
@@ -127,5 +129,6 @@ type cangjieValue struct {
 	Version   string
 	Category  string
 	Code      string
+	Source    string
 	Serial    uint32
 }

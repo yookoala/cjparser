@@ -19,7 +19,8 @@ func (h CangjieDataHandler) Init(db *ConvertDB) (err error) {
 			version TEXT,
 			category TEXT,
 			code TEXT,
-			serial TEXT
+			serial TEXT,
+			source TEXT
 		)
 	`
 	_, err = db.DB.Exec(query)
@@ -35,9 +36,10 @@ func (h CangjieDataHandler) Insert(tx *sql.Tx, item interface{}) (err error) {
 		version,
 		category,
 		code,
-		serial
+		serial,
+		source
 	) VALUES (
-		?, ?, ?, ?, ?, ?
+		?, ?, ?, ?, ?, ?, ?
 	)`)
 	if err != nil {
 		log.Fatal(err)
@@ -45,6 +47,6 @@ func (h CangjieDataHandler) Insert(tx *sql.Tx, item interface{}) (err error) {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(itemVal.Unicode, itemVal.Character, itemVal.Version,
-		itemVal.Category, itemVal.Code, itemVal.Serial)
+		itemVal.Category, itemVal.Code, itemVal.Serial, itemVal.Source)
 	return
 }
