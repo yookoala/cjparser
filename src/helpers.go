@@ -43,7 +43,8 @@ func readLines(path string) (lines []string, err error) {
 	return
 }
 
-func parseCangjie3File(filename string, handlerName string, cat string, src string, db *ConvertDB) {
+func parseCangjie3File(filename string, handlerName string,
+	sepDist int, cat string, src string, db *ConvertDB) {
 
 	var serial uint32
 
@@ -58,17 +59,17 @@ func parseCangjie3File(filename string, handlerName string, cat string, src stri
 	}
 	for _, line := range lines {
 		line = strings.TrimRight(line, "\t ")
-		if len(line) > 9 && line[0] != ' ' {
+		if len(line) > sepDist && line[0] != ' ' {
 			serial += 1
-			partChar := strings.TrimRight(line[0:8], "\t ")
-			partCode := strings.TrimRight(line[8:], "\t ")
+			partCode := strings.Trim(line[0:sepDist], "\t ")
+			partChar := strings.Trim(line[sepDist:], "\t ")
 			unicode, _ := utf8.DecodeRuneInString(partChar)
 			item := cangjieValue{
 				Unicode:   strings.ToUpper(fmt.Sprintf("U+%x", unicode)),
 				Character: partChar,
 				Version:   handlerName,
 				Category:  cat,
-				Code:      partCode,
+				Code:      strings.ToLower(partCode),
 				Source:    src,
 				Serial:    serial,
 			}
@@ -110,7 +111,7 @@ func parseCangjie5File(filename string, handlerName string, cat string, src stri
 				Character: splited[0],
 				Version:   handlerName,
 				Category:  cat,
-				Code:      splited[1],
+				Code:      strings.ToLower(splited[1]),
 				Source:    src,
 				Serial:    serial,
 			}
