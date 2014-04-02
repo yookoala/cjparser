@@ -38,4 +38,12 @@ func main() {
 	parseCangjie3File(dir+"/cj3/JTCJ_UTF8.TXT", "Cangjie3", 5, "zh-hans", "JTCJ_GB.TXT", &db)
 	parseCangjie5File(dir+"/cj5/cj5-21000", "Cangjie5", "zh-hant", "cj5-21000", &db)
 	parseCangjie5File(dir+"/cj5/cj5-jt-7000", "Cangjie5", "zh-hans", "cj5-jt-7000", &db)
+	parseLibcangjie1File(dir+"/cj3/libcangjie1-cj3-cc.txt", "Cangjie3", 7, "zh-hant", "libcangjie1-cj3-cc.txt", &db)
+	parseLibcangjie1File(dir+"/cj3/libcangjie1-cj3-cjk.txt", "Cangjie3", 7, "zh-hant", "libcangjie1-cj3-cjk.txt", &db)
+	parseLibcangjie1File(dir+"/cj3/libcangjie1-cj3-sc.txt", "Cangjie3", 6, "zh-hant", "libcangjie1-cj3-sc.txt", &db)
+	parseLibcangjie1File(dir+"/cj3/libcangjie1-cj3-tc.txt", "Cangjie3", 7, "zh-hant", "libcangjie1-cj3-tc.txt", &db)
+	parseLibcangjie1File(dir+"/cj5/libcangjie1-cj5-cc.txt", "Cangjie5", 7, "zh-hant", "libcangjie1-cj5-cc.txt", &db)
+	parseLibcangjie1File(dir+"/cj5/libcangjie1-cj5-cjk.txt", "Cangjie5", 7, "zh-hant", "libcangjie1-cj5-cjk.txt", &db)
+	parseLibcangjie1File(dir+"/cj5/libcangjie1-cj5-sc.txt", "Cangjie5", 6, "zh-hant", "libcangjie1-cj5-sc.txt", &db)
+	parseLibcangjie1File(dir+"/cj5/libcangjie1-cj5-tc.txt", "Cangjie5", 7, "zh-hant", "libcangjie1-cj5-tc.txt", &db)
 }
